@@ -389,12 +389,20 @@
 
         .project-img {
             height: 200px;
-            background: linear-gradient(45deg, var(--primary), var(--secondary));
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: white;
-            font-size: 1.5rem;
+            width: 100%;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .project-img img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.5s ease;
+        }
+
+        .project-card:hover .project-img img {
+            transform: scale(1.05);
         }
 
         .project-content {
@@ -656,17 +664,17 @@
             <div class="projects-container">
                 <div class="project-card fade-in">
                     <div class="project-img">
-                        Almanac Tools
+                        <img src="Almanac-pic.png" alt="Almanac Development">
                     </div>
                     <div class="project-content">
-                        <h3>Almanac Development</h3>
+                        <h3>Almanac Intern</h3>
                         <p>Contributed to building multiple tools and user-friendly interfaces during my 4-month tenure as a Frontend Developer at Almanac.</p>
                         <a href="https://jayanthi-17.github.io/My-Almanac-Journey/" class="project-link" target="_blank">View Project →</a>
                     </div>
                 </div>
                 <div class="project-card fade-in">
                     <div class="project-img">
-                        Attendance Tracker
+                        <img src="ATS-pic.png" alt="Attendance Tracker System">
                     </div>
                     <div class="project-content">
                         <h3>Attendance Tracker System</h3>
@@ -676,7 +684,7 @@
                 </div>
                 <div class="project-card fade-in">
                     <div class="project-img">
-                        Gloria Medbot
+                        <img src="medbot.png" alt="Gloria Medbot">
                     </div>
                     <div class="project-content">
                         <h3>Gloria Medbot</h3>
