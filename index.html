@@ -24,7 +24,7 @@
         }
 
         body {
-            font-family: 'Open Sans', sans-serif;
+            font-family: 'Poppins', sans-serif;
             line-height: 1.6;
             color: var(--text);
             background-color: var(--light);
@@ -238,6 +238,12 @@
         .about-image {
             flex: 1;
             text-align: center;
+            position: relative;
+        }
+
+        .profile-img-container {
+            position: relative;
+            display: inline-block;
         }
 
         .profile-img {
@@ -245,15 +251,81 @@
             height: 300px;
             border-radius: 50%;
             object-fit: cover;
-            border: 5px solid var(--primary);
-            box-shadow: 0 10px 30px rgba(108, 99, 255, 0.3);
+            border: 8px solid white;
+            box-shadow: 0 15px 35px rgba(108, 99, 255, 0.2);
             animation: floatImg 3s ease-in-out infinite;
+            transition: all 0.5s ease;
+            position: relative;
+            overflow: hidden;
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 5rem;
+        }
+
+        .profile-img:hover {
+            transform: scale(1.05);
+            box-shadow: 0 20px 40px rgba(108, 99, 255, 0.4);
+        }
+
+        .profile-img::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, rgba(108, 99, 255, 0.2), rgba(74, 68, 198, 0.2));
+            border-radius: 50%;
+            opacity: 0;
+            transition: opacity 0.5s ease;
+            z-index: 1;
+        }
+
+        .profile-img:hover::before {
+            opacity: 1;
+        }
+
+        .profile-img img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            border-radius: 50%;
+            transition: transform 0.5s ease;
+            position: relative;
+            z-index: 2;
+        }
+
+        .profile-img:hover img {
+            transform: scale(1.1);
         }
 
         @keyframes floatImg {
             0% { transform: translateY(0); }
             50% { transform: translateY(-15px); }
             100% { transform: translateY(0); }
+        }
+
+        /* Subtle decorative elements for profile image */
+        .profile-decoration {
+            position: absolute;
+            width: 320px;
+            height: 320px;
+            border-radius: 50%;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            z-index: -1;
+            opacity: 0.7;
+            background: conic-gradient(from 0deg, transparent, var(--primary), transparent);
+            animation: rotate 15s linear infinite;
+        }
+
+        @keyframes rotate {
+            0% { transform: translate(-50%, -50%) rotate(0deg); }
+            100% { transform: translate(-50%, -50%) rotate(360deg); }
         }
 
         /* Skills Section */
@@ -477,6 +549,11 @@
                 width: 250px;
                 height: 250px;
             }
+            
+            .profile-decoration {
+                width: 270px;
+                height: 270px;
+            }
         }
     </style>
 </head>
@@ -526,8 +603,12 @@
                     <p>Currently pursuing my B.Tech in Computer Science from St. Mary's Group of Institutions, I'm always looking for new challenges and opportunities to learn.</p>
                 </div>
                 <div class="about-image">
-                    <div class="profile-img">
-                        <i class="fas fa-user" style="font-size: 8rem; color: #6C63FF; line-height: 300px;"></i>
+                    <div class="profile-img-container">
+                        <div class="profile-decoration"></div>
+                        <div class="profile-img" id="profile-image">
+                            <img src="my photo.jpg" alt="Kilari Jayanthi - Frontend Developer" onerror="this.style.display='none';">
+                            <i class="fas fa-user" style="display: none;"></i>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -627,7 +708,7 @@
                 </div>
             </div>
             <div class="social-links">
-                <a href="www.linkedin.com/in/kilari-jayanthi17" target="_blank"><i class="fab fa-linkedin-in"></i></a>
+                <a href="https://www.linkedin.com/in/kilari-jayanthi17" target="_blank"><i class="fab fa-linkedin-in"></i></a>
                 <a href="https://github.com/Jayanthi-17" target="_blank"><i class="fab fa-github"></i></a>
                 <a href="mailto:Kilarijayanthi03@gmail.com"><i class="fas fa-envelope"></i></a>
             </div>
@@ -637,7 +718,7 @@
     <!-- Footer -->
     <footer>
         <div class="container">
-            <p>&copy; 2023 Kilari Jayanthi. All Rights Reserved.</p>
+            <p>&copy; 2023 Kilari Jayanthi. All rights reserved.</p>
         </div>
     </footer>
 
@@ -687,6 +768,23 @@
                         behavior: 'smooth'
                     });
                 }
+            });
+        });
+
+        // Handle profile image fallback
+        document.addEventListener('DOMContentLoaded', function() {
+            const profileImg = document.querySelector('.profile-img img');
+            const fallbackIcon = document.querySelector('.profile-img .fa-user');
+            
+            if (profileImg && profileImg.complete && profileImg.naturalHeight === 0) {
+                // Image failed to load
+                profileImg.style.display = 'none';
+                fallbackIcon.style.display = 'flex';
+            }
+            
+            profileImg.addEventListener('error', function() {
+                this.style.display = 'none';
+                fallbackIcon.style.display = 'flex';
             });
         });
     </script>
